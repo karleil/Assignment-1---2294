@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>MDIA 2294</title>
+	
+	<style>
+	    thead{
+	        font-weight:bold;
+	    }
+	    
+	    td{
+	        padding-left:5px;
+	        padding-right:5px;	        
+	    }
+	    
+	    td.sub-total{
+	        text-align:right;	        
+	    }
+	</style>
+</head>
+<body>
+	<h1>MDIA 2294: ACME Corp Invoice</h1>
+	
+	<table>
+	    <thead>
+	        <tr>
+	            <td>ITEM</td>
+	            <td>DESCRIPTION</td>
+	            <td>QTY</td>
+	            <td>PRICE</td>
+	            <td>LINE TOTAL</td>
+	        </tr>
+	    </thead>
+	    <tbody>
+	        <tr>
+	            <td>1</td>
+	            <td><input id="line-1-description" type="text" size="40" value="Anvil" /></td>
+	            <td><input id="line-1-quantity" type="text" size="3" value="5" /></td>
+	            <td><input id="line-1-price" type="text" size="6" value="35.00" /></td>
+	            <td class="sub-total"><span id="line-1"></span></td>
+	        </tr>
+	        <tr>
+	            <td>2</td>
+	            <td><input id="line-2-description" type="text" size="40" value="Rocket Skates (each)" /></td>
+	            <td><input id="line-2-quantity" type="text" size="3" value="2" /></td>
+	            <td><input id="line-2-price" type="text" size="6" value="24.99" /></td>
+	            <td class="sub-total"><span id="line-2"></span></td>
+	        </tr>
+	        <tr>
+	            <td>3</td>
+	            <td><input id="line-3-description" type="text" size="40" value="Giant Magnet" /></td>
+	            <td><input id="line-3-quantity" type="text" size="3" value="1" /></td>
+	            <td><input id="line-3-price" type="text" size="6" value="125.50" /></td>
+	            <td class="sub-total"><span id="line-3"></span></td>
+	        </tr>
+	        <tr>
+	            <td>4</td>
+	            <td><input id="line-4-description" type="text" size="40" value="Ball bearings" /></td>
+	            <td><input id="line-4-quantity" type="text" size="3" value="1000" /></td>
+	            <td><input id="line-4-price" type="text" size="6" value="0.25" /></td>
+	            <td class="sub-total"><span id="line-4"></span></td>
+	        </tr>
+	        <tr>
+	            <td>5</td>
+	            <td><input id="line-5-description" type="text" size="40" value="Portable holes" /></td>
+	            <td><input id="line-5-quantity" type="text" size="3" value="12" /></td>
+	            <td><input id="line-5-price" type="text" size="6" value="15.25" /></td>
+	            <td class="sub-total"><span id="line-5"></span></td>
+	        </tr>
+	    </tbody>
+	    <tfoot>
+	        <tr>
+	            <td colspan="4" style="text-align:right;">SUB TOTAL</td>  
+	            <td class="sub-total"><span id="sub-total"></span></td>	        
+	        </tr>
+	        <tr>
+	            <td colspan="4" style="text-align:right;">DISCOUNT</td>  
+	            <td class="sub-total"><span id="discount"></span></td>	        
+	        </tr>
+	        <tr>
+	            <td colspan="4" style="text-align:right;">TAX</td>  
+	            <td class="sub-total"><span id="tax"></span></td>	        
+	        </tr>
+	        <tr>
+	            <td colspan="4" style="text-align:right;">TOTAL</td>  
+	            <td class="sub-total" style="border-top:solid black 1px"><span id="total"></span></td>	        
+	        </tr>
+	    </tfoot>	    
+	</table>
+	
+	<div><button id="calculate">Calculate</button></div>
+	<div>NOTE: discounts of 10% are given to orders over $250</div>	
+
+	<script> //Karleil Villareal - A01397468
+    	let discount = 0; //declares the discount as a global variable using let (let = value can be reassigned).
+        let tax = 0; //declares the tax as a global variable using let (let = value can be changed).
+		const button = document.querySelector("#calculate"); //declares the button by selecting the button in our html with the id "calculate".
+
+        function calculate(){
+			
+			let running_stotal = 0; //declares a variable for the subtotal later 
+
+			//for lines 104-137:
+            const qtt1 = document.querySelector("#line-1-quantity").value; //assigns the value that you input in <td> with the id "line-1-quantity" to the const variable "qtt1" (const = cant be reassigned). 
+			const prc1 = document.querySelector("#line-1-price").value; //assigns the value that you input in <td> with the id "line-1-price" to the const variable "prc1" (const = cant be reassigned).
+			const itm1_total = qtt1 * prc1; //declares a variable with the value of the product of qtt1 and prc1 (line one quantity * price).
+			running_stotal += itm1_total; //adds the new value of itm1_total to the current value of running_stotal (running sub total).
+			document.querySelector("#line-1").innerText = "$" +  itm1_total.toFixed(2); //selects the span with the id "line-1" in our html then displays the itm1_total variable with a string "$" concatenated to it (toFixed(2) = only displays 2 decimal numbers).
+			
+
+			const qtt2 = document.querySelector("#line-2-quantity").value;
+			const prc2 = document.querySelector("#line-2-price").value;
+			const itm2_total = qtt2 * prc2;
+			running_stotal += itm2_total;
+			document.querySelector("#line-2").innerText = "$" +  itm2_total.toFixed(2);
+
+
+			const qtt3 = document.querySelector("#line-3-quantity").value;
+			const prc3 = document.querySelector("#line-3-price").value;
+			const itm3_total = qtt3 * prc3;
+			running_stotal += itm3_total;
+			document.querySelector("#line-3").innerText = "$" +  itm3_total.toFixed(2);
+
+
+			const qtt4 = document.querySelector("#line-4-quantity").value;
+			const prc4 = document.querySelector("#line-4-price").value;
+			const itm4_total = qtt4 * prc4;
+			running_stotal += itm4_total;
+			document.querySelector("#line-4").innerText = "$" + itm4_total.toFixed(2);
+
+
+			const qtt5 = document.querySelector("#line-5-quantity").value;
+			const prc5 = document.querySelector("#line-5-price").value;
+			const itm5_total = qtt5 * prc5;
+			running_stotal += itm5_total;
+			document.querySelector("#line-5").innerText = "$" + itm5_total.toFixed(2);
+
+		//  variable discount's value will depend if the condition is satisfied or not
+			const discount = running_stotal > 250 ? running_stotal * 0.10 : 0; //If running_stotal (running sub-total) is more than 250, then the value of discount will be running_stotal multiplied by 0.10. If not, then it will be 0.
+			const tax = (running_stotal - discount) * 0.12; //assigns the variable tax's value into the difference of running_stotal and discount multiplied by 0.12
+			const total = running_stotal - discount + tax; //declares the variable called "total" with the value of the difference of running_stotal and discount plus tax.
+
+			document.querySelector("#sub-total").innerText = "$" +  running_stotal.toFixed(2); //selects the span with the id "sub-total" in our html and displays the current value of running_stotal with the string "$" concatenated. (toFixed (2) = only displays 2 decimal numbers).
+			document.querySelector("#discount").innerText = "$" +  discount.toFixed(2);//selects the span with the id "discount" in our html and displays the value of discount variable with the string "$" concatenated. (toFixed (2) = only displays 2 decimal numbers).
+			document.querySelector("#tax").innerText = "$" +  tax.toFixed(2); //selects the span with the id "tax" in our html and displays the value of tax variable with the string "$" concatenated. (toFixed (2) = only displays 2 decimal numbers).
+			document.querySelector("#total").innerText = "$" +  total.toFixed(2); //selects the span with the id "total" in our html and displays the value of total variable with the string "$" concatenated. (toFixed (2) = only displays 2 decimal numbers).
+        }
+		
+        button.addEventListener("click", calculate); //Makes our function calculate run whenever you press the Calculate button.
+
+    </script>
+	
+</body>
+</html>
